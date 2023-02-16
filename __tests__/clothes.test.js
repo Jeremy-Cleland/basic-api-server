@@ -2,15 +2,15 @@
 
 const { app } = require('../src/server');
 const supertest = require('supertest');
-const { sequelize } = require('../src/models/index');
+const { sequelizeDatabase } = require('../src/models/index');
 const request = supertest(app);
 
 beforeAll(async () => {
-  await sequelize.sync();
+  await sequelizeDatabase.sync();
 });
 
 afterAll(async () => {
-  await sequelize.drop();
+  await sequelizeDatabase.drop();
 });
 
 describe('clothes server', () => {
@@ -24,7 +24,7 @@ describe('clothes server', () => {
     expect(response.status).toEqual(200);
     expect(response.body.type).toEqual('T-shirt');
     expect(response.body.size).toEqual('small');
-    expect(response.body.cost).toEqual('1000');
+    expect(response.body.cost).toEqual(1000);
     expect(response.body.id).toBeTruthy();
   });
 
@@ -33,13 +33,12 @@ describe('clothes server', () => {
     expect(response.status).toEqual(200);
     expect(response.body[0].type).toEqual('T-shirt');
     expect(response.body[0].size).toEqual('small');
-    expect(response.body[0].cost).toEqual('1000');
+    expect(response.body[0].cost).toEqual(1000);
     expect(response.body[0].id).toBeTruthy();
   });
 
   it('gets all clothing items', async () => {
     const response = await request.get('/clothes');
-
     expect(response.status).toEqual(200);
     expect(response.body.length).toBeGreaterThan(0);
   });
@@ -53,7 +52,7 @@ describe('clothes server', () => {
     const response = await request.put('/clothes/1').send({
       type: 'T-shirt',
       size: 'small',
-      cost: '1000',
+      cost: 1000,
     });
     expect(response.status).toEqual(200);
   });

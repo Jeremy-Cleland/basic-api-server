@@ -1,13 +1,13 @@
 'use strict';
 
 const express = require('express');
-const { foodModel } = require('../models/clothes');
+const { foodModel } = require('../models');
 
 const router = express.Router();
 
 router.get('/food', async (req, res, next) => {
-  const foods = await foodModel.findAll();
-  res.status(200).send(foods);
+  const food = await foodModel.findAll();
+  res.status(200).send(food);
 });
 
 router.post('/food', async (req, res, next) => {
@@ -21,7 +21,7 @@ router.post('/food', async (req, res, next) => {
 
 router.get('/food/:id', async (req, res, next) => {
   try {
-    const food = await foodModel.findByPk(req.params.id);
+    const food = await foodModel.findByPk;
     res.status(200).send(food);
   } catch (error) {
     next(error);

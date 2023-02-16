@@ -26,7 +26,7 @@ app.get('/food', validator, (req, res, next) => {
   res.status(200).json(req.query);
 });
 
-app.get('/clothes', validator, (req, res, next) => {
+app.get('/person', validator, (req, res, next) => {
   console.log('This is the query from server.js', req.query);
   res.status(200).json(req.query);
 });

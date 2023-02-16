@@ -2,15 +2,15 @@
 
 const { app } = require('../src/server');
 const supertest = require('supertest');
-const { sequelize } = require('../src/models/index');
+const { sequelizeDatabase } = require('../src/models/index');
 const request = supertest(app);
 
 beforeAll(async () => {
-  await sequelize.sync();
+  await sequelizeDatabase.sync();
 });
 
 afterAll(async () => {
-  await sequelize.drop();
+  await sequelizeDatabase.drop();
 });
 
 describe('food server', () => {
