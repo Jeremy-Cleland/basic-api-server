@@ -21,7 +21,7 @@ router.post('/food', async (req, res, next) => {
 
 router.get('/food/:id', async (req, res, next) => {
   try {
-    const food = await foodModel.findByPk;
+    const food = await foodModel.findByPk(req.params.id);
     res.status(200).send(food);
   } catch (error) {
     next(error);
