@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const { clothesModel } = require('../models/clothes');
+const { clothesModel } = require('../models');
 
 const router = express.Router();
 
@@ -31,21 +31,19 @@ router.get('/clothes/:id', async (req, res, next) => {
 
 router.put('/clothes/:id', async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id);
-    const obj = req.body;
-    let clothes = await clothesModel.findone({ where: { id: id } });
-    let updatedClothes = await clothes.update(obj);
-    res.status(200).json(updatedClothes);
+    const updatedFood = await clothesModel.update(req.body, {
+      where: { id: req.params.id },
+    });
+    res.status(200).send(updatedFood);
   } catch (error) {
     next(error);
   }
 });
 
-router.delete('/clothes//:id', async (req, res, next) => {
+router.delete('/clothes/:id', async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id);
-    let deletedClothes = await clothesModel.destroy({ where: { id } });
-    res.status(204).json(deletedClothes);
+    await clothesModel.destroy({ where: { id: req.params.id } });
+    res.status(200).send('Clothes Deleted');
   } catch (error) {
     next(error);
   }

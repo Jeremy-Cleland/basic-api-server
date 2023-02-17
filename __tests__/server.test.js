@@ -7,7 +7,6 @@ const request = supertest(app);
 describe('API Server', () => {
   test('handles invalid requests', async () => {
     const response = await request.get('/foo');
-
     expect(response.status).toEqual(404);
   });
 
@@ -17,9 +16,8 @@ describe('API Server', () => {
     expect(response.text).toBeTruthy();
     expect(response.text).toEqual('Welcome to main route!');
   });
-  test('handles the person get route', async () => {
+  test('should return correct output object', async () => {
     const response = await request.get('/person?name=Jeremy');
-    let nameJson = JSON.stringify({ name: 'Jeremy' });
-    expect(response.text).toEqual(nameJson);
+    expect(response.body).toEqual({ name: 'Jeremy' });
   });
 });

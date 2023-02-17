@@ -3,7 +3,7 @@
 module.exports = (sequelizeDatabase, DataTypes) => {
   return sequelizeDatabase.define('food', {
     meal: {
-      type: DataTypes.String,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     mealSize: {
